@@ -60,18 +60,40 @@ def random_set_of_labels
   end
 end
 
+def random_estimate(story_type, labels)
+  return if labels && labels.include?('needs_estimation')
+  return if ['bug', 'chore'].include? story_type
+  rand(4)
+end
+
 def fake_story
+  story_type = random_story_type
+  labels = random_set_of_labels
   {
     :name => ipsum_sentence,
-    :story_type => random_story_type,
+    :story_type => story_type,
+    :estimate => random_estimate(story_type, labels),
     :description => ipsum_paragraph,
     :current_state => random_current_state,
-    :labels => random_set_of_labels
+    :labels => labels
   }
+end
+
+def show_progress
+  print '#'
+  STDOUT.flush
+  sleep(1.0/4.0)
 end
 
 PivotalTracker::Client.token = API_TOKEN
 @tracker_project = PivotalTracker::Project.find(PROJECT_ID)
+
+puts "Adding #{STORY_COUNT} stories."
+
 STORY_COUNT.times do
   @tracker_project.stories.create(fake_story)
+  show_progress
 end
+
+puts
+puts "done."
