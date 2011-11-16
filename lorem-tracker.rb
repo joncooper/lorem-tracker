@@ -39,8 +39,10 @@ def random_current_state
   case
   when seed >= 4
     'unstarted'
-  when [2,3].include?(seed)
+  when [3,4].include?(seed)
     'delivered'
+  when seed == 2
+    'accepted'
   when seed == 1
     'started'
   when seed == 0
@@ -48,7 +50,9 @@ def random_current_state
   end
 end
 
-def random_set_of_labels
+def random_set_of_labels(story_type)
+  return if ['bug', 'chore'].include?(story_type)
+
   seed = rand(10)
   case
   when seed >= 7
@@ -63,12 +67,12 @@ end
 def random_estimate(story_type, labels)
   return if labels && labels.include?('needs_estimation')
   return if ['bug', 'chore'].include? story_type
-  rand(4)
+  rand(3) + 1
 end
 
 def fake_story
   story_type = random_story_type
-  labels = random_set_of_labels
+  labels = random_set_of_labels(story_type)
   {
     :name => ipsum_sentence,
     :story_type => story_type,
