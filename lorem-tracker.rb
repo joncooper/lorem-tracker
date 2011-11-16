@@ -15,11 +15,11 @@ end
 
 def ipsum_sentence
   sentences = ipsum_paragraph.strip.split('.')
-  sentences[rand(sentences.length - 1)] + "."
+  sentences.sample + "."
 end
 
 def ipsum_paragraph
-  IPSUM_TEXT[rand(IPSUM_TEXT.length - 1)]
+  IPSUM_TEXT.sample
 end
 
 def random_story_type
@@ -56,7 +56,7 @@ def random_set_of_labels(story_type)
   seed = rand(10)
   case
   when seed >= 7
-    ['blocked_art', 'blocked_eng', 'blocked_pm'][rand(3)]
+    ['blocked_art', 'blocked_eng', 'blocked_pm'].sample
   when seed == 1
     ['needs_estimation']
   when seed == 0
