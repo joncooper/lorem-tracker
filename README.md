@@ -24,9 +24,15 @@ Sorrow awaits the unwary.
 to use:
 
 ```
+bundle install
+
 export API_TOKEN=<your API token>
 export PROJECT_ID=<your project id>
 export STORY_COUNT=<how many stories to add>
 
 ruby ./lorem-tracker.rb
 ```
+
+## Addendum
+
+This was written versus Ruby 1.9.3-preview1. YMMV.
